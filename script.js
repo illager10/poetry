@@ -88,4 +88,4 @@ document.addEventListener('keydown', (e) => {
 });
 
 randomFood();
-setInterval(draw, 150); // 150ms — скорость
+setInterval(draw, 500); // 150ms — скорость
