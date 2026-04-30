@@ -45,7 +45,7 @@ function update() {
     // Проверка стен и самоедения
     if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount ||
         snake.some(s => s.x === head.x && s.y === head.y)) {
-        alert(`Игра окончена! Счёт: ${score}\nНажмите OK для рестарта.`);
+        // alert(`Игра окончена! Счёт: ${score}\nНажмите OK для рестарта.`);
         snake = [{x: 10, y: 10}];
         dx = dy = 0;
         score = 0;
