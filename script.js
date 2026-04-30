@@ -38,6 +38,7 @@ function drawFood() {
 
 function update() {
     if (!gameRunning) return;
+    setTimeout(500);
 
     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 
