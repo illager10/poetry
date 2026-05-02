@@ -120,7 +120,7 @@ function showMenu() {
         document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
         document.getElementById('sceneMenu').classList.remove('hidden');
         // Вернуть фон меню (опционально)
-        document.body.style.backgroundImage = `url('${scenes[0].bg}')`; // дефолтный фон        
+        document.body.style.backgroundImage = `url('${scenes[1].bg}')`; // дефолтный фон        
         overlay.classList.remove('fade-in');
         overlay.classList.add('fade-out');
         container.classList.remove('fade-locked');
