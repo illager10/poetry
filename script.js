@@ -1,6 +1,10 @@
 Telegram.WebApp.ready();
 Telegram.WebApp.expand();
 
+//----------------------------------------------Блок констнт и объявления перменных-------------------------------------
+const overlay = document.getElementById('fadeOverlay');
+const container = document.getElementById('novelContainer');
+
 // Объекты сцен
 const scenes = {
     1: {
@@ -20,6 +24,8 @@ const scenes = {
     }
 };
 
+//----------------------------------------------Блок констнт и объявления перменных-------------------------------------
+
 // Клик по сценам меню
 document.querySelectorAll('.scene-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -34,21 +40,39 @@ document.querySelectorAll('.back-btn').forEach(btn => {
 });
 
 function showScene(sceneId) {
-    // Скрыть всё
-    document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
+    // 1. Затемнить экран
+    overlay.classList.add('fade-in');
+    container.classList.add('fade-locked');
     
-    // Показать сцену
-    document.getElementById(`scene${sceneId}`).classList.remove('hidden');
-    
-    // Сменить фон
-    document.body.style.backgroundImage = `url('${scenes[sceneId].bg}')`;
+    setTimeout(() => {
+        // 2. Скрыть контент, сменить сцену
+        document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`scene${sceneId}`).classList.remove('hidden');
+        
+        // 3. Сменить фон
+        document.body.style.backgroundImage = `url('${scenes[sceneId].bg}')`;
+        
+        // 4. Осветлить и разблокировать
+        overlay.classList.remove('fade-in');
+        overlay.classList.add('fade-out');
+        container.classList.remove('fade-locked');
+    }, 400); // 400ms затемнения
 }
 
 function showMenu() {
+    overlay.classList.add('fade-in');
+    container.classList.add('fade-locked');
     // Скрыть сцены, показать меню
     document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
     document.getElementById('sceneMenu').classList.remove('hidden');
-    
-    // Вернуть фон меню (опционально)
-    document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/background.jpg')"; // или любой дефолтный
+
+    setTimeout(() => {
+        document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
+        document.getElementById('sceneMenu').classList.remove('hidden');
+        // Вернуть фон меню (опционально)
+        document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/background.jpg')"; // дефолтный фон        
+        overlay.classList.remove('fade-in');
+        overlay.classList.add('fade-out');
+        container.classList.remove('fade-locked');
+    }, 400);
 }
