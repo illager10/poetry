@@ -12,7 +12,7 @@ html, body {
 
 body {
     /* Основной адаптивный фон */
-    background-image: url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/scene1.jpg'); /* Замените на свою картинку */
+    background-image: url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/scene2.jpg'); /* Замените на свою картинку */
     background-size: cover;      /* Покрывает весь экран, обрезая края */
     background-position: center; /* Центр изображения */
     background-repeat: no-repeat;
