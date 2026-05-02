@@ -59,8 +59,7 @@ function showScene(sceneId) {
         
         // 4. Осветлить и разблокировать
         overlay.classList.remove('fade-in');
-        overlay.classList.add('fade-out');
-    }, 400); // 400ms затемнения
+      }, 400); // 400ms затемнения
 }
 
 
@@ -76,7 +75,6 @@ function showMenu() {
         document.body.style.backgroundImage = `url('${scenes[background_id].bg}')`; // основной фон   
 
         overlay.classList.remove('fade-in');
-        overlay.classList.add('fade-out');
     }, 400);
 }
 
