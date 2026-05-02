@@ -146,17 +146,11 @@ body {
     transform: scale(1);
 }
 
-.fade-overlay.fade-in {
-    background: rgba(0, 0, 0, 0.98);
-    backdrop-filter: blur(8px);
-    transform: scale(1.02); /* Лёгкий зум */
-}
-
 .fade-overlay.fade-out {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0) !important;
     backdrop-filter: blur(0px);
     transform: scale(1);
-    pointer-events: none !important;
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* Обратная кривая — медленно светлеет */
 }
 
 .scene-btn, .back-btn {
@@ -167,7 +161,6 @@ body {
     user-select: none;
     -webkit-tap-highlight-color: transparent; /* Убираем синий отблеск */
     -webkit-touch-callout: none;
-    touch-action: manipulation;
     cursor: pointer; /* Для ПК */
 }
 

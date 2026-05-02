@@ -7,6 +7,11 @@ const container = document.getElementById('novelContainer');
 
 // Объекты сцен
 const scenes = {
+    0: {
+        bg: 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/background.jpg',
+        title: 'Главное меню',
+        text: 'Ты стоишь перед тёмным особняком. Луна освещает его острые шпили...'
+    },
     1: {
         bg: 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/scene1.jpg',
         title: 'Ночной особняк',
@@ -79,7 +84,7 @@ function showMenu() {
         document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
         document.getElementById('sceneMenu').classList.remove('hidden');
         // Вернуть фон меню (опционально)
-        document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/background.jpg')"; // дефолтный фон        
+        document.body.style.backgroundImage = `url('${scenes[0].bg}')`; // дефолтный фон        
         overlay.classList.remove('fade-in');
         overlay.classList.add('fade-out');
         container.classList.remove('fade-locked');
