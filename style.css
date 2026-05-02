@@ -12,7 +12,7 @@ html, body {
 
 body {
     /* Основной адаптивный фон */
-    background-image: url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/scene2.jpg'); /* Замените на свою картинку */
+    background-image: url('https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/background.jpg'); /* Замените на свою картинку */
     background-size: cover;      /* Покрывает весь экран, обрезая края */
     background-position: center; /* Центр изображения */
     background-repeat: no-repeat;
@@ -52,12 +52,14 @@ body {
     }
 }
 
+
 /* Мобильные */
 @media (max-width: 600px) {
     .scene-grid {
         grid-template-columns: 1fr;
     }
 }
+
 
 #sceneMenu h1 {
     font-size: clamp(1.5rem, 6vw, 3rem);
@@ -130,6 +132,7 @@ body {
     display: none;
 }
 
+/* Затемняющий overlay (добавьте в конец) */
 .fade-overlay {
     position: fixed;
     top: 0;
@@ -137,35 +140,25 @@ body {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0);
-    z-index: 999; /* Было 1000 → 999 */
-    pointer-events: none;
-    touch-action: manipulation; /* Фикс для ПК/мобайл */
-    user-select: none;
-    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Медленнее + easing */
+    z-index: 1000;
+    pointer-events: none; /* Клик проходит сквозь */
+    transition: background 0.6s ease-in-out;
     backdrop-filter: blur(0px);
-    transform: scale(1);
+}
+
+.fade-overlay.fade-in {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(5px);
 }
 
 .fade-overlay.fade-out {
-    background: rgba(0, 0, 0, 0) !important;
+    background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0px);
-    transform: scale(1);
-    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* Обратная кривая — медленно светлеет */
 }
 
-.scene-btn, .back-btn {
-    position: relative;
-    z-index: 1001; /* Выше overlay */
-    touch-action: manipulation;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent; /* Убираем синий отблеск */
-    -webkit-touch-callout: none;
-    cursor: pointer; /* Для ПК */
-}
-
+/* Блокировка контента во время перехода */
 .novel-container.fade-locked {
-    opacity: 0.7;
+    opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
 }
