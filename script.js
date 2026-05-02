@@ -44,14 +44,6 @@ document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', showMenu);
 });
 
-// Фикс кликов на ПК
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.scene-btn, .back-btn')) return;
-    e.stopPropagation();
-}, true);
-
-// Блокировка скролла в Telegram
-document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
 
 function showScene(sceneId) {
     // 1. Затемнить экран
