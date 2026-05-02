@@ -45,98 +45,38 @@ document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', showMenu);
 });
 
-// function showScene(sceneId) {
-//     // 1. Затемнить экран
-//     overlay.classList.add('fade-in');
-//     container.classList.add('fade-locked');
-    
-//     setTimeout(() => {
-//         // 2. Скрыть контент, сменить сцену
-//         document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
-//         document.getElementById(`scene${sceneId}`).classList.remove('hidden');
-        
-//         // 3. Сменить фон
-//         document.body.style.backgroundImage = `url('${scenes[sceneId].bg}')`;
-        
-//         // 4. Осветлить и разблокировать
-//         overlay.classList.remove('fade-in');
-//         overlay.classList.add('fade-out');
-//         container.classList.remove('fade-locked');
-//     }, 400); // 400ms затемнения
-// }
-
-
 function showScene(sceneId) {
-    document.body.style.pointerEvents = 'none';
-    
-    // Затемнение
+    // 1. Затемнить экран
     overlay.classList.add('fade-in');
-    container.classList.add('fade-locked');
     
-    // Ждём окончания затемнения (1.2s)
-    overlay.addEventListener('transitionend', function once() {
-        // Смена сцены
+    setTimeout(() => {
+        // 2. Скрыть контент, сменить сцену
         document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
         document.getElementById(`scene${sceneId}`).classList.remove('hidden');
+        
+        // 3. Сменить фон
         document.body.style.backgroundImage = `url('${scenes[sceneId].bg}')`;
         
-        // Оттeмнение
+        // 4. Осветлить и разблокировать
         overlay.classList.remove('fade-in');
         overlay.classList.add('fade-out');
-        container.classList.remove('fade-locked');
-        
-        // Ждём окончания оттeмнения → разблокировка
-        overlay.addEventListener('transitionend', function once2() {
-            document.body.style.pointerEvents = 'auto';
-            overlay.removeEventListener('transitionend', once2);
-        }, { once: true });
-        
-        overlay.removeEventListener('transitionend', once);
-    }, { once: true });
+    }, 400); // 400ms затемнения
 }
 
-// function showMenu() {
-
-//     overlay.classList.add('fade-in');
-//     container.classList.add('fade-locked');
-//     // Скрыть сцены, показать меню
-//     document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
-//     document.getElementById('sceneMenu').classList.remove('hidden');
-
-//     setTimeout(() => {
-//         document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
-//         document.getElementById('sceneMenu').classList.remove('hidden');
-//         // Вернуть фон меню (опционально)
-//         document.body.style.backgroundImage = `url('${scenes[background_id].bg}')`; // дефолтный фон        
-//         overlay.classList.remove('fade-in');
-//         overlay.classList.add('fade-out');
-//         container.classList.remove('fade-locked');
-//     }, 400);
-// }
 
 function showMenu() {
-    document.body.style.pointerEvents = 'none';
+
+    overlay.classList.add('fade-in');    
     
-    overlay.classList.add('fade-in');
-    container.classList.add('fade-locked');
-    
-    overlay.addEventListener('transitionend', function once() {
-        document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
+    setTimeout(() => {
+        // Скрыть сцены, показать меню
+        document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
         document.getElementById('sceneMenu').classList.remove('hidden');
-        document.body.style.backgroundImage = `url('${scenes[background_id].bg}')`;
-        
-        // Плавное оттмнение
+        // Вернуть фон меню (опционально)
+        document.body.style.backgroundImage = `url('${scenes[background_id].bg}')`; // основной фон   
+
         overlay.classList.remove('fade-in');
         overlay.classList.add('fade-out');
-        container.classList.remove('fade-locked');
-        
-        overlay.addEventListener('transitionend', function once2() {
-            document.body.style.pointerEvents = 'auto';
-            overlay.removeEventListener('transitionend', once2);
-        }, { once: true });
-        
-        overlay.removeEventListener('transitionend', once);
-    }, { once: true });
+    }, 400);
 }
-
 
