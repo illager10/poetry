@@ -40,7 +40,27 @@ const scenes = {
 
 //----------------------------------------------Блок музыкального сопровождения-------------------------------------\\
 
+let userInteracted = false;
 let currentAudio = audio[0]; // Текущий трек
+let musicEnabled = false;
+
+function initAudio() {
+    if (userInteracted) return;
+    
+    playSceneAudio(menu_id); // Музыка меню
+    userInteracted = true;
+}
+
+// Ловим ЛЮБОЙ первый клик/тап
+document.addEventListener('click', initAudio, { once: true });
+document.addEventListener('touchstart', initAudio, { once: true });
+document.addEventListener('keydown', initAudio, { once: true });
+
+// Telegram события тоже
+Telegram.WebApp.onEvent('mainButtonClicked', initAudio);
+Telegram.WebApp.onEvent('backButtonClicked', initAudio);
+
+
 
 function playSceneAudio(sceneId) {
     // Остановить текущий
@@ -53,6 +73,24 @@ function playSceneAudio(sceneId) {
     currentAudio = audio[sceneId];
     currentAudio.volume = 0.3; // Громкость 30%
     currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
+}
+
+function toggleMusic() {
+    musicEnabled = !musicEnabled;
+    const btn = document.getElementById('musicToggle');
+    
+    if (musicEnabled) {
+        initAudio(); // Старт меню музыки
+        btn.textContent = '🔇 Выключить';
+        btn.style.background = 'rgba(255,100,100,0.3)';
+    } else {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        btn.textContent = '🎵 Включить музыку';
+        btn.style.background = 'rgba(255,255,255,0.2)';
+    }
 }
 
 
@@ -71,9 +109,9 @@ document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', showMenu);
 });
 
-document.addEventListener('click', () => {
-    if (currentScene === 0) playSceneAudio(menu_id);
-}, { once: true });
+// document.addEventListener('click', () => {
+//     if (currentScene === 0) playSceneAudio(menu_id);
+// }, { once: true });
 
 function showScene(sceneId) {
     // 1. Затемнить экран
@@ -104,9 +142,8 @@ function showMenu() {
         document.getElementById('sceneMenu').classList.remove('hidden');
         // Вернуть фон меню (опционально)
         document.body.style.backgroundImage = `url('${scenes[menu_id].bg}')`; // основной фон   
-
-        playSceneAudio(menu_id);
-
+        
         overlay.classList.remove('fade-in');
+        playSceneAudio(menu_id);
     }, 400);
 }
