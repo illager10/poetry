@@ -52,6 +52,13 @@ body {
     }
 }
 
+/* Мобильные */
+@media (max-width: 600px) {
+    .scene-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 #sceneMenu h1 {
     font-size: clamp(1.5rem, 6vw, 3rem);
     margin-bottom: 30px;
@@ -121,13 +128,6 @@ body {
 /* Скрытые элементы */
 .hidden {
     display: none;
-}
-
-/* Мобильные */
-@media (max-width: 600px) {
-    .scene-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 .fade-overlay {

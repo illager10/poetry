@@ -116,16 +116,71 @@ function showMenu() {
     document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
     document.getElementById('sceneMenu').classList.remove('hidden');
 
-    setTimeout(() => {
+    // setTimeout(() => {
+    //     document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
+    //     document.getElementById('sceneMenu').classList.remove('hidden');
+    //     // Вернуть фон меню (опционально)
+    //     document.body.style.backgroundImage = `url('${scenes[0].bg}')`; // дефолтный фон        
+    //     overlay.classList.remove('fade-in');
+    //     overlay.classList.add('fade-out');
+    //     container.classList.remove('fade-locked');
+    // }, 400);
+    overlay.addEventListener('transitionend', function once() {
         document.querySelectorAll('.scene').forEach(el => el.classList.add('hidden'));
         document.getElementById('sceneMenu').classList.remove('hidden');
-        // Вернуть фон меню (опционально)
-        document.body.style.backgroundImage = `url('${scenes[0].bg}')`; // дефолтный фон        
+        document.body.style.backgroundImage = `url('${scenes[0].bg}')`; // дефолтный фон   
+        
+        // Плавное оттмнение
         overlay.classList.remove('fade-in');
         overlay.classList.add('fade-out');
         container.classList.remove('fade-locked');
-    }, 400);
+        
+        overlay.addEventListener('transitionend', function once2() {
+            document.body.style.pointerEvents = 'auto';
+            overlay.removeEventListener('transitionend', once2);
+        }, { once: true });
+        
+        overlay.removeEventListener('transitionend', once);
+    }, { once: true });
+}
+
+function showMenu() {
+    document.body.style.pointerEvents = 'none';
+    
+    overlay.classList.add('fade-in');
+    container.classList.add('fade-locked');
+    
+
 }
 
 
+
+function showScene(sceneId) {
+    document.body.style.pointerEvents = 'none';
+    
+    // Затемнение
+    overlay.classList.add('fade-in');
+    container.classList.add('fade-locked');
+    
+    // Ждём окончания затемнения (1.2s)
+    overlay.addEventListener('transitionend', function once() {
+        // Смена сцены
+        document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`scene${sceneId}`).classList.remove('hidden');
+        document.body.style.backgroundImage = `url('${scenes[sceneId].bg}')`;
+        
+        // Оттмнение
+        overlay.classList.remove('fade-in');
+        overlay.classList.add('fade-out');
+        container.classList.remove('fade-locked');
+        
+        // Ждём окончания оттмнения → разблокировка
+        overlay.addEventListener('transitionend', function once2() {
+            document.body.style.pointerEvents = 'auto';
+            overlay.removeEventListener('transitionend', once2);
+        }, { once: true });
+        
+        overlay.removeEventListener('transitionend', once);
+    }, { once: true });
+}
 
