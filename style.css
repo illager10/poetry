@@ -34,35 +34,6 @@ body {
     backdrop-filter: blur(5px);
 }
 
-.dialogue h1 {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 20px;
-}
-
-.dialogue p {
-    font-size: clamp(1rem, 4vw, 1.2rem);
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
-
-.choice-btn {
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.5);
-    color: white;
-    padding: 15px 30px;
-    margin: 10px;
-    border-radius: 25px;
-    font-size: clamp(1rem, 3vw, 1.1rem);
-    cursor: pointer;
-    transition: all 0.3s;
-    backdrop-filter: blur(10px);
-}
-
-.choice-btn:hover {
-    background: rgba(255,255,255,0.4);
-    transform: scale(1.05);
-}
-
 /* Мобильные оптимизации */
 @media (max-width: 768px) {
     body {
@@ -188,7 +159,6 @@ body {
     pointer-events: none !important;
 }
 
-/* Фикс кнопок на ПК */
 .scene-btn, .back-btn {
     position: relative;
     z-index: 1001; /* Выше overlay */
