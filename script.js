@@ -26,18 +26,18 @@ const scenes = {
 
 //----------------------------------------------Блок констнт и объявления перменных-------------------------------------
 
-// Клик по сценам меню
-document.querySelectorAll('.scene-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const sceneId = btn.dataset.scene;
-        showScene(sceneId);
-    });
-});
+// // Клик по сценам меню
+// document.querySelectorAll('.scene-btn').forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         const sceneId = btn.dataset.scene;
+//         showScene(sceneId);
+//     });
+// });
 
-// Кнопки назад
-document.querySelectorAll('.back-btn').forEach(btn => {
-    btn.addEventListener('click', showMenu);
-});
+// // Кнопки назад
+// document.querySelectorAll('.back-btn').forEach(btn => {
+//     btn.addEventListener('click', showMenu);
+// });
 
 // Фикс кликов на ПК
 document.addEventListener('click', (e) => {
