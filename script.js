@@ -39,6 +39,48 @@ document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', showMenu);
 });
 
+// Фикс кликов на ПК
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.scene-btn, .back-btn')) return;
+    e.stopPropagation();
+}, true);
+
+// Блокировка скролла в Telegram
+document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+
+// Универсальные обработчики для Telegram (ПК + мобильные)
+function addUniversalClick(btn, callback) {
+    // 1. Стандартный click (мобильные)
+    btn.addEventListener('click', callback);
+    
+    // 2. Telegram event (ПК/Desktop)
+    btn.addEventListener('TelegramGameProxyReady', callback);
+    
+    // 3. Pointer events (универсально)
+    btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        callback();
+    });
+    
+    // 4. Touch для гарантии
+    btn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        callback();
+    }, { passive: false });
+}
+
+// Применяем ко всем кнопкам
+document.querySelectorAll('.scene-btn, .back-btn').forEach(btn => {
+    addUniversalClick(btn, () => {
+        const sceneId = btn.dataset.scene;
+        if (sceneId) {
+            showScene(sceneId);
+        } else {
+            showMenu();
+        }
+    });
+});
+
 function showScene(sceneId) {
     // 1. Затемнить экран
     overlay.classList.add('fade-in');
@@ -76,3 +118,6 @@ function showMenu() {
         container.classList.remove('fade-locked');
     }, 400);
 }
+
+
+
