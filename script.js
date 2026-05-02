@@ -1,10 +1,18 @@
 Telegram.WebApp.ready();
 Telegram.WebApp.expand();
 
-//----------------------------------------------Блок констнт и объявления перменных-------------------------------------
+//----------------------------------------------Блок констант и объявления перменных-------------------------------------\\
 const overlay       = document.getElementById('fadeOverlay');
 const container     = document.getElementById('novelContainer');
-const background_id = 0;
+const menu_id = 0;
+
+// Аудио объекты
+const audio = {
+    0: document.getElementById('audio-menu'),
+    1: document.getElementById('audio-scene1'),
+    2: document.getElementById('audio-scene2'),
+    3: document.getElementById('audio-scene3')
+};
 
 // Объекты сцен
 const scenes = {
@@ -30,7 +38,25 @@ const scenes = {
     }
 };
 
-//----------------------------------------------Блок констнт и объявления перменных-------------------------------------
+//----------------------------------------------Блок музыкального сопровождения-------------------------------------\\
+
+let currentAudio = audio[0]; // Текущий трек
+
+function playSceneAudio(sceneId) {
+    // Остановить текущий
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+    
+    // Новый трек
+    currentAudio = audio[sceneId];
+    currentAudio.volume = 0.3; // Громкость 30%
+    currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
+}
+
+
+//----------------------------------------------Блок кнопок и переходов и объявления перменных-------------------------------------\\
 
 // Клик по сценам меню
 document.querySelectorAll('.scene-btn').forEach(btn => {
@@ -44,6 +70,10 @@ document.querySelectorAll('.scene-btn').forEach(btn => {
 document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', showMenu);
 });
+
+document.addEventListener('click', () => {
+    if (currentScene === 0) playSceneAudio(menu_id);
+}, { once: true });
 
 function showScene(sceneId) {
     // 1. Затемнить экран
@@ -59,6 +89,7 @@ function showScene(sceneId) {
         
         // 4. Осветлить и разблокировать
         overlay.classList.remove('fade-in');
+        playSceneAudio(sceneId);
       }, 400); // 400ms затемнения
 }
 
@@ -72,9 +103,10 @@ function showMenu() {
         document.querySelectorAll('.scene, #sceneMenu').forEach(el => el.classList.add('hidden'));
         document.getElementById('sceneMenu').classList.remove('hidden');
         // Вернуть фон меню (опционально)
-        document.body.style.backgroundImage = `url('${scenes[background_id].bg}')`; // основной фон   
+        document.body.style.backgroundImage = `url('${scenes[menu_id].bg}')`; // основной фон   
+
+        playSceneAudio(menu_id);
 
         overlay.classList.remove('fade-in');
     }, 400);
 }
-
