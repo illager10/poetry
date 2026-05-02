@@ -80,3 +80,81 @@ body {
         padding: 10px;
     }
 }
+
+#sceneMenu h1 {
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.scene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 500px;
+}
+
+.scene-btn {
+    background: rgba(0, 100, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    cursor: pointer;
+    transition: all 0.4s;
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.scene-btn:hover {
+    background: rgba(0, 150, 255, 0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,100,255,0.4);
+}
+
+/* Стили сцен */
+.scene {
+    text-align: center;
+}
+
+.scene h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 20px;
+}
+
+.scene p {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.back-btn {
+    background: rgba(255, 100, 100, 0.3);
+    border: 2px solid rgba(255, 100, 100, 0.7);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.back-btn:hover {
+    background: rgba(255, 100, 100, 0.6);
+    transform: scale(1.05);
+}
+
+/* Скрытые элементы */
+.hidden {
+    display: none;
+}
+
+/* Мобильные */
+@media (max-width: 600px) {
+    .scene-grid {
+        grid-template-columns: 1fr;
+    }
+}

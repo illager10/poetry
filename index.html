@@ -9,11 +9,33 @@
 </head>
 <body>
     <div class="novel-container">
-        <div class="dialogue">
-            <h1>Глава 1: Тени прошлого</h1>
-            <p>Ты стоишь на пороге старого особняка. Дождь стучит по крыше...</p>
-            <button class="choice-btn">Войти внутрь</button>
-            <button class="choice-btn">Осмотреть окрестности</button>
+        <!-- Меню сцен (по умолчанию) -->
+        <div id="sceneMenu">
+            <h1>Выберите сцену</h1>
+            <div class="scene-grid">
+                <button class="scene-btn" data-scene="1">🌙 Ночной особняк</button>
+                <button class="scene-btn" data-scene="2">🌧️ Дождливый лес</button>
+                <button class="scene-btn" data-scene="3">🏰 Заброшенный замок</button>
+            </div>
+        </div>
+
+        <!-- Сцены (скрыты) -->
+        <div id="scene1" class="scene hidden">
+            <h1>Сцена 1: Ночной особняк</h1>
+            <p>Ты стоишь перед тёмным особняком. Луна освещает его острые шпили...</p>
+            <button class="back-btn">← Назад к меню</button>
+        </div>
+
+        <div id="scene2" class="scene hidden">
+            <h1>Сцена 2: Дождливый лес</h1>
+            <p>Дождь хлещет по листьям. Вдали слышен вой волков...</p>
+            <button class="back-btn">← Назад к меню</button>
+        </div>
+
+        <div id="scene3" class="scene hidden">
+            <h1>Сцена 3: Заброшенный замок</h1>
+            <p>Ветер завывает в пустых коридорах. Что-то шевелится в тени...</p>
+            <button class="back-btn">← Назад к меню</button>
         </div>
     </div>
     <script src="script.js"></script>
