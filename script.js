@@ -40,29 +40,10 @@ const scenes = {
 
 //----------------------------------------------Блок музыкального сопровождения-------------------------------------\\
 
-let userInteracted = false;
 let currentAudio = audio[0]; // Текущий трек
-let musicEnabled = false;
+let musicEnabled = true;
 
-function initAudio() {
-    if (userInteracted) return;
-    
-    playSceneAudio(menu_id); // Музыка меню
-    userInteracted = true;
-}
-
-// Ловим ЛЮБОЙ первый клик/тап
-document.addEventListener('click', initAudio, { once: true });
-document.addEventListener('touchstart', initAudio, { once: true });
-document.addEventListener('keydown', initAudio, { once: true });
-
-// Telegram события тоже
-Telegram.WebApp.onEvent('mainButtonClicked', initAudio);
-Telegram.WebApp.onEvent('backButtonClicked', initAudio);
-
-
-
-function playSceneAudio(sceneId) {
+function playSceneAudio(sceneId) {  
     // Остановить текущий
     if (currentAudio) {
         currentAudio.pause();
@@ -72,6 +53,8 @@ function playSceneAudio(sceneId) {
     // Новый трек
     currentAudio = audio[sceneId];
     currentAudio.volume = 0.3; // Громкость 30%
+    if (!musicEnabled) return;
+
     currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
 }
 
@@ -79,14 +62,13 @@ function toggleMusic() {
     musicEnabled = !musicEnabled;
     const btn = document.getElementById('musicToggle');
     
-    if (musicEnabled) {
-        initAudio(); // Старт меню музыки
+    if (!musicEnabled) {
+        if (currentAudio) currentAudio.pause();
         btn.textContent = '🔇 Выключить';
         btn.style.background = 'rgba(255,100,100,0.3)';
     } else {
         if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
+            currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
         }
         btn.textContent = '🎵 Включить музыку';
         btn.style.background = 'rgba(255,255,255,0.2)';
