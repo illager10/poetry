@@ -8,11 +8,18 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="music-control">
-        <button id="musicToggle" onclick="toggleMusic()">🎵 Включить музыку</button>
+    <!-- Панель управления -->
+    <div class="control-panel">
+        <!-- Управление музыкой -->
+        <button id="soundToggle" class="control-btn sound-on" title="Звук вкл/выкл">
+            <!-- SVG или img -->
+            <img src="https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_on_icon.png" alt="🔊">
+        </button>
+        <button id="settingsBtn" class="control-btn" title="Меню">
+            <img src="https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/settings_icon.png" alt="☰">
+        </button>
     </div>
     <div class="novel-container">
-        <!-- Управление музыкой -->
         <!-- Меню сцен (по умолчанию) -->
         <div id="sceneMenu">
             <h1>Выберите сцену</h1>

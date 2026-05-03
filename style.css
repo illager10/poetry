@@ -60,6 +60,18 @@ body {
     }
 }
 
+/* Мобильные */
+@media (max-width: 480px) {
+    .control-panel {
+        top: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+    .control-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
 
 #sceneMenu h1 {
     font-size: clamp(1.5rem, 6vw, 3rem);
@@ -157,19 +169,63 @@ body {
     transform: scale(1);
     transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* Обратная кривая — медленно светлеет */
 }
-
+/* 
 .music-control {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 2000;
-}
+} */
 
-#musicToggle {
+/* #musicToggle {
     background: rgba(255,255,255,0.2);
     border: 1px solid rgba(255,255,255,0.5);
     color: white;
     padding: 10px 15px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
+} */
+
+
+.control-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 3000;
+    pointer-events: auto;
 }
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.control-btn img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(1.2) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+}
+
+.sound-off .sound-img {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+

@@ -43,6 +43,11 @@ const scenes = {
 let currentAudio = audio[0]; // Текущий трек
 let musicEnabled = true;
 
+const soundBtn = document.getElementById('soundToggle');
+const soundImg = soundBtn.querySelector('img');
+
+soundBtn.addEventListener('click', toggleSound);
+
 function playSceneAudio(sceneId) {  
     // Остановить текущий
     if (currentAudio) {
@@ -58,22 +63,32 @@ function playSceneAudio(sceneId) {
     currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
 }
 
-function toggleMusic() {
+function toggleSound() {
     musicEnabled = !musicEnabled;
     const btn = document.getElementById('musicToggle');
     
     if (!musicEnabled) {
         if (currentAudio) currentAudio.pause();
-        btn.textContent = '🔇 Выключить';
-        btn.style.background = 'rgba(255,100,100,0.3)';
+        soundBtn.classList.add('sound-off');
+        soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_on_icon.png';
+        soundImg.alt = '🔊';
     } else {
         if (currentAudio) {
             currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
         }
-        btn.textContent = '🎵 Включить музыку';
-        btn.style.background = 'rgba(255,255,255,0.2)';
+        soundBtn.classList.add('sound-off');
+        soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_off_icon.png';
+        soundImg.alt = '🔇';
     }
+
+    Telegram.WebApp.HapticFeedback.impactOccurred('light');
 }
+
+// Меню кнопка (заглушка)
+document.getElementById('settingsBtn').addEventListener('click', () => {
+    alert('Меню (скоро!)');
+    Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+});
 
 
 //----------------------------------------------Блок кнопок и переходов и объявления перменных-------------------------------------\\
