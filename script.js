@@ -70,15 +70,15 @@ function toggleSound() {
     if (!musicEnabled) {
         if (currentAudio) currentAudio.pause();
         soundBtn.classList.add('sound-off');
-        soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_on_icon.png';
-        soundImg.alt = '🔊';
+        soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_off_icon.png';
+        soundImg.alt = '🔇';
     } else {
         if (currentAudio) {
             currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
         }
-        soundBtn.classList.add('sound-off');
-        soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_off_icon.png';
-        soundImg.alt = '🔇';
+        soundBtn.classList.remove('sound-off');
+        soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_on_icon.png';
+        soundImg.alt = '🔊';
     }
 
     Telegram.WebApp.HapticFeedback.impactOccurred('light');
