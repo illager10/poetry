@@ -416,3 +416,5 @@ input:checked + .slider:before {
         transform: translate(-50%, -50%);
     }
 }
+
+/* Блок для  окна глобальных настроек */
