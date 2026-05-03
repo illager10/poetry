@@ -6,6 +6,21 @@ const overlay       = document.getElementById('fadeOverlay');
 const container     = document.getElementById('novelContainer');
 const menu_id = 0;
 
+
+//Элементы верхнего меню
+const soundBtn = document.getElementById('soundToggle');
+const soundImg = soundBtn.querySelector('img');
+
+
+// Элементы настроек
+const settingsModal      = document.getElementById('settingsModal'     );
+const closeSettings      = document.getElementById('closeSettings'     );
+const volumeSlider       = document.getElementById('volumeSlider'      );
+const volumeValue        = document.getElementById('volumeValue'       );
+const settingsBtn        = document.getElementById('settingsBtn'       );
+const SettingSoundToggle = document.getElementById('SettingSoundToggle');
+const soundSettingImg    = SettingSoundToggle.querySelector('img');
+
 // Аудио объекты
 const audio = {
     0: document.getElementById('audio-menu'),
@@ -43,9 +58,6 @@ const scenes = {
 let currentAudio = audio[0]; // Текущий трек
 let musicEnabled = true;
 
-const soundBtn = document.getElementById('soundToggle');
-const soundImg = soundBtn.querySelector('img');
-
 soundBtn.addEventListener('click', toggleSound);
 
 function playSceneAudio(sceneId) {  
@@ -57,7 +69,6 @@ function playSceneAudio(sceneId) {
     
     // Новый трек
     currentAudio = audio[sceneId];
-    currentAudio.volume = 0.3; // Громкость 30%
     if (!musicEnabled) return;
 
     currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
@@ -65,13 +76,15 @@ function playSceneAudio(sceneId) {
 
 function toggleSound() {
     musicEnabled = !musicEnabled;
-    const btn = document.getElementById('musicToggle');
     
     if (!musicEnabled) {
         if (currentAudio) currentAudio.pause();
         soundBtn.classList.add('sound-off');
         soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_off_icon.png';
         soundImg.alt = '🔇';
+        soundSettingImg.classList.add('sound-off');
+        soundSettingImg.src = soundImg.src;
+        soundSettingImg.alt = soundImg.alt;
     } else {
         if (currentAudio) {
             currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
@@ -79,17 +92,59 @@ function toggleSound() {
         soundBtn.classList.remove('sound-off');
         soundImg.src = 'https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_on_icon.png';
         soundImg.alt = '🔊';
+        soundSettingImg.classList.remove('sound-off');
+        soundSettingImg.src = soundImg.src;
+        soundSettingImg.alt = soundImg.alt;
     }
 
     Telegram.WebApp.HapticFeedback.impactOccurred('light');
 }
 
-// Меню кнопка (заглушка)
-document.getElementById('settingsBtn').addEventListener('click', () => {
-    alert('Меню (скоро!)');
+//----------------------------------------------Блок расширенных настрокек -------------------------------------\\
+
+
+
+// Открытие настроек
+settingsBtn.addEventListener('click', () => {
+    settingsModal.classList.remove('hidden');
     Telegram.WebApp.HapticFeedback.impactOccurred('medium');
 });
 
+// Закрытие
+closeSettings.addEventListener('click', closeSettingsModal);
+document.querySelector('.settings-overlay').addEventListener('click', closeSettingsModal);
+
+function closeSettingsModal() {
+    settingsModal.classList.add('hidden');
+    Telegram.WebApp.HapticFeedback.impactOccurred('light');
+}
+
+SettingSoundToggle.addEventListener('click', toggleSound);
+// Toggle музыки  Для slider, не для конпки
+// SettingSoundToggle.addEventListener('change', (e) => {
+//     musicEnabled = e.target.checked; 
+//     toggleSound(); // Ваша функция
+// });
+
+// Ползунок громкости
+volumeSlider.addEventListener('input', (e) => {
+    const vol = e.target.value / 100;
+    if (currentAudio) {
+        currentAudio.volume = vol;
+    }
+    volumeValue.textContent = e.target.value + '%';
+});
+
+// Инициализация значений
+// musicCheckbox.checked = musicEnabled; -- Для slider, не для конпки
+volumeSlider.value = currentAudio ? Math.round(currentAudio.volume * 100) : 30;
+volumeValue.textContent = volumeSlider.value + '%';
+
+// Кнопка сохранить = закрыть
+document.querySelector('.save-btn').addEventListener('click', () => {
+    closeSettingsModal();
+    Telegram.WebApp.HapticFeedback.impactOccurred('light');
+});
 
 //----------------------------------------------Блок кнопок и переходов и объявления перменных-------------------------------------\\
 
@@ -105,10 +160,6 @@ document.querySelectorAll('.scene-btn').forEach(btn => {
 document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', showMenu);
 });
-
-// document.addEventListener('click', () => {
-//     if (currentScene === 0) playSceneAudio(menu_id);
-// }, { once: true });
 
 function showScene(sceneId) {
     // 1. Затемнить экран

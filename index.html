@@ -19,6 +19,36 @@
             <img src="https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/settings_icon.png" alt="☰">
         </button>
     </div>
+    <div id="settingsModal" class="settings-modal hidden">
+        <div class="settings-overlay"></div>
+        <div class="settings-panel">
+            <div class="settings-header">
+                <h2>⚙️ Настройки</h2>
+                <button id="closeSettings" class="close-btn">×</button>
+            </div>
+            
+            <div class="setting-item">
+                <label>Музыка</label>
+                <!-- <label class="toggle-switch">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span class="slider"></span>
+                </label> -->
+                <button id="SettingSoundToggle" class="control-btn sound-on" title="Звук вкл/выкл">
+                    <img src="https://raw.githubusercontent.com/illager10/poetry/refs/heads/main/images/music_on_icon.png" alt="🔊">
+                </button>
+            </div>
+            
+            <div class="setting-item">
+                <label>Громкость</label>
+                <div class="volume-control">
+                    <input type="range" id="volumeSlider" min="0" max="100" value="30">
+                    <span id="volumeValue">30%</span>
+                </div>
+            </div>
+            
+            <button class="save-btn">Сохранить</button>
+        </div>
+    </div>
     <div class="novel-container">
         <!-- Меню сцен (по умолчанию) -->
         <div id="sceneMenu">
